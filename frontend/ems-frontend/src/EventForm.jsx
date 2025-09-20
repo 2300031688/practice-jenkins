@@ -22,21 +22,22 @@ export default function EventForm({ event, onSaved, onCancel }) {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (event) {
-        await updateEvent(form.id, form);
-      } else {
-        await addEvent(form);
-      }
-      setErrors({});
-      onSaved();
-    } catch (err) {
-      setErrors(err);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    let saved;
+    if (event) {
+      saved = await updateEvent(form.id, form);
+    } else {
+      saved = await addEvent(form);
     }
-  };
+    setErrors({});
+    onSaved(saved); // ✅ pass updated/new event back
+  } catch (err) {
+    setErrors(err);
+  }
+};
+
 
   return (
     <form

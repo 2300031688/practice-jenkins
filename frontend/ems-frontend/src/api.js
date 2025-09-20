@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:2030/eventspringboot/api/events";
+const BASE_URL = "http://localhost:8080/api/events";
 
 // Get all events
 export async function getEvents() {

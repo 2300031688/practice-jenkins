@@ -52,16 +52,30 @@ export default function EventList() {
 
       {showForm && (
         <EventForm
-          event={editing}
-          onSaved={() => {
-            setShowForm(false);
-            setEditing(null);
-            load();
-          }}
-          onCancel={() => {
-            setShowForm(false);
-            setEditing(null);
-          }}
+  event={editing}
+  onSaved={(savedEvent) => {
+    setShowForm(false);
+    setEditing(null);
+
+    if (savedEvent) {
+      // ✅ Update events immediately without waiting for reload
+      setEvents((prev) => {
+        const exists = prev.some((e) => e.id === savedEvent.id);
+        if (exists) {
+          return prev.map((e) => (e.id === savedEvent.id ? savedEvent : e));
+        } else {
+          return [...prev, savedEvent]; // new event added
+        }
+      });
+    } else {
+      load(); // fallback
+    }
+  }}
+  onCancel={() => {
+    setShowForm(false);
+    setEditing(null);
+  }}
+
         />
       )}
 
