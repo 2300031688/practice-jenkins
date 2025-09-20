@@ -26,10 +26,23 @@ this.service = service;
 }
 
 
+//✅ Get limited events (default)
 @GetMapping
-public List<Event> getAll() {
-return service.findAll();
+public List<Event> getLimitedEvents() {
+ List<Event> allEvents = service.findAll();
+ return allEvents.stream().limit(5).toList(); // only first 5
 }
+@GetMapping("/")
+public String rootMessage() {
+    return "🎉 Welcome to the Events API! Use /api/events or /api/events/all to get data.";
+}
+
+//✅ Get ALL events
+@GetMapping("/all")
+public List<Event> getAllEvents() {
+ return service.findAll(); // full list
+}
+
 
 
 @GetMapping("/{id}")

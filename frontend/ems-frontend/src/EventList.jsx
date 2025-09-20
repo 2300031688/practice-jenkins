@@ -97,6 +97,7 @@ export default function EventList() {
               <h3 style={{ color: "#2c3e50", marginBottom: "8px" }}>
                 {e.title} 🎭
               </h3>
+              
               <p style={{ margin: "5px 0" }}>{e.description}</p>
               <p style={{ margin: "5px 0" }}>📍 {e.location}</p>
               <p style={{ margin: "5px 0" }}>🕒 {e.startTime} → {e.endTime}</p>
